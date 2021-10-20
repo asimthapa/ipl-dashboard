@@ -1,9 +1,7 @@
 package xyz.sudocat.ipldashboard.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Team {
@@ -15,10 +13,15 @@ public class Team {
     private long totalMatches;
     private long totalWins;
 
+    @Transient
+    List<Match> recentMatches;
+
     public Team(String teamName, long totalMatches) {
         this.teamName = teamName;
         this.totalMatches = totalMatches;
     }
+
+    public Team() {}
 
     public long getId() {
         return id;
@@ -50,6 +53,14 @@ public class Team {
 
     public void setTotalWins(long totalWins) {
         this.totalWins = totalWins;
+    }
+
+    public List<Match> getRecentMatches() {
+        return recentMatches;
+    }
+
+    public void setRecentMatches(List<Match> recentMatches) {
+        this.recentMatches = recentMatches;
     }
 
     @Override

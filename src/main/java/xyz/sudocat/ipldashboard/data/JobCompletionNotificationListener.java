@@ -30,7 +30,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
     @Transactional
     public void afterJob(JobExecution jobExecution) {
         if(jobExecution.getStatus() == BatchStatus.COMPLETED) {
-            log.info("!!! JOB FINISHED! Time to verify the results");
+            log.info("!!! JOB FINISHED! Time to write team data to database !!!");
 
             Map<String, Team> teamData = new HashMap<>();
             entityManager.createQuery("select m.team1, count(*) from Match m group by m.team1", Object[].class)
