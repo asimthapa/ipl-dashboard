@@ -21,7 +21,8 @@ public class Team {
         this.totalMatches = totalMatches;
     }
 
-    public Team() {}
+    public Team() {
+    }
 
     public long getId() {
         return id;
@@ -65,10 +66,7 @@ public class Team {
 
     @Override
     public String toString() {
-        return "Team{" +
-                "teamName='" + teamName + '\'' +
-                ", totalMatches=" + totalMatches +
-                ", totalWins=" + totalWins +
-                '}';
+        return "Team{" + "teamName='" + teamName + '\'' + ", totalMatches=" + totalMatches + ", totalWins=" + totalWins
+                + '}';
     }
 }
