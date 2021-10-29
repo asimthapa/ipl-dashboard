@@ -1,16 +1,11 @@
 package xyz.sudocat.ipldashboard.data;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.springframework.batch.item.ItemProcessor;
 import xyz.sudocat.ipldashboard.model.Match;
 
 import java.time.LocalDate;
 
 public class MatchDataProcessor implements ItemProcessor<MatchInput, Match> {
-
-    private static final Logger log = LoggerFactory.getLogger(MatchDataProcessor.class);
 
     @Override
     public Match process(final MatchInput matchInput) throws Exception {
@@ -25,12 +20,12 @@ public class MatchDataProcessor implements ItemProcessor<MatchInput, Match> {
         String firstInningsTeam, secondInningsTeam;
         if ("bat".equals(matchInput.getToss_decision())) {
             firstInningsTeam = matchInput.getToss_winner();
-            secondInningsTeam =  matchInput.getToss_winner().equals(matchInput.getTeam1()) ?
-                    matchInput.getTeam2() : matchInput.getTeam1();
+            secondInningsTeam = matchInput.getToss_winner().equals(matchInput.getTeam1()) ? matchInput.getTeam2()
+                    : matchInput.getTeam1();
         } else {
             secondInningsTeam = matchInput.getToss_winner();
-            firstInningsTeam =  matchInput.getToss_winner().equals(matchInput.getTeam1()) ?
-                    matchInput.getTeam2() : matchInput.getTeam1();
+            firstInningsTeam = matchInput.getToss_winner().equals(matchInput.getTeam1()) ? matchInput.getTeam2()
+                    : matchInput.getTeam1();
         }
         match.setTeam1(firstInningsTeam);
         match.setTeam2(secondInningsTeam);

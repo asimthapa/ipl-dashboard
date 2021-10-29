@@ -2,6 +2,8 @@ import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MatchDetailCard } from "../components/MatchDetailCard";
 import { MatchSmallCard } from "../components/MatchSmallCard";
+import { WinLossPieChart } from "../components/WinLossPieChart";
+import "./TeamPage.scss";
 
 export const TeamPage = () => {
 	const [team, setTeam] = useState({ recentMatches: [] });
@@ -21,11 +23,29 @@ export const TeamPage = () => {
 
 	return (
 		<div className="TeamPage">
-			<h1>{team.teamName}</h1>
-			<MatchDetailCard teamName={team.teamName} match={team.recentMatches[0]} />
+			<div className="team-name">
+				<h1 className="team-name">{team.teamName}</h1>
+			</div>
+			<div className="win-loss">
+				Wins / Losses
+				<WinLossPieChart
+					wins={team.totalWins}
+					losses={team.totalMatches - team.totalWins}
+				/>
+			</div>
+			<div className="match-detail">
+				<h3>Latest Matches</h3>
+				<MatchDetailCard
+					teamName={team.teamName}
+					match={team.recentMatches[0]}
+				/>
+			</div>
 			{team.recentMatches.slice(1).map((match) => (
 				<MatchSmallCard teamName={team.teamName} match={match} key={match.id} />
 			))}
+			<div className="more-link">
+				<a href="TeamPage">More `{">"}`</a>
+			</div>
 		</div>
 	);
 };

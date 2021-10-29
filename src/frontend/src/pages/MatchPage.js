@@ -12,7 +12,6 @@ export const MatchPage = () => {
 			);
 			const data = await response.json();
 			setMatches(data);
-			console.log(matches);
 		};
 		fetchMatches();
 	}, []);
