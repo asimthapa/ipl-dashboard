@@ -2,17 +2,25 @@ import "./App.scss";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { TeamPage } from "./pages/TeamPage";
 import { MatchPage } from "./pages/MatchPage";
+import { HomePage } from "./pages/HomPage";
+import { ResourceNotFound } from "./components/ResourceNotFound";
 
 function App() {
 	return (
 		<div className="App">
 			<Router>
 				<Switch>
-					<Route path="/teams/:teamName/matches/:year">
+					<Route exact path="/">
+						<HomePage />
+					</Route>
+					<Route exact path="/teams/:teamName">
+						<TeamPage />
+					</Route>
+					<Route exact path="/teams/:teamName/matches/:year">
 						<MatchPage />
 					</Route>
-					<Route path="/teams/:teamName">
-						<TeamPage />
+					<Route path="*">
+						<ResourceNotFound />
 					</Route>
 				</Switch>
 			</Router>

@@ -1,11 +1,15 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { MatchDetailCard } from "../components/MatchDetailCard";
+import { ResourceNotFound } from "../components/ResourceNotFound";
 import { YearSelector } from "../components/YearSelector";
 import "./MatchPage.scss";
 
 export const MatchPage = () => {
 	const [matches, setMatches] = useState([]);
+	const [loadState, setLoadState] = useState({
+		loading: true,
+	});
 	const { teamName, year } = useParams();
 	useEffect(() => {
 		const fetchMatches = async () => {
@@ -14,9 +18,23 @@ export const MatchPage = () => {
 			);
 			const data = await response.json();
 			setMatches(data);
+			setLoadState({
+				loading: false,
+			});
 		};
 		fetchMatches();
 	}, [teamName, year]);
+
+	if (loadState.loading) {
+		//TODO: implement loading
+		return null;
+	}
+
+	if (matches.length === 0) {
+		return (
+			<ResourceNotFound resourceName="Matches" moreText={`for ${teamName}`} />
+		);
+	}
 
 	return (
 		<div className="MatchPage">

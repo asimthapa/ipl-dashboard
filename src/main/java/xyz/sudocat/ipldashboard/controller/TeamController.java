@@ -24,7 +24,9 @@ public class TeamController {
     @GetMapping("/team/{teamName}")
     public Team getTeam(@PathVariable String teamName) {
         Team team = this.teamRepository.findByTeamName(teamName);
-        team.setRecentMatches(this.matchRepository.findLatestMatchesByTeam(teamName, 4));
+        if (team != null) {
+            team.setRecentMatches(this.matchRepository.findLatestMatchesByTeam(teamName, 4));
+        }
         return team;
     }
 
@@ -32,9 +34,7 @@ public class TeamController {
     public List<Match> getMatchesForTeam(@PathVariable String teamName, @RequestParam int year) {
         LocalDate startDate = LocalDate.of(year, 1, 1);
         LocalDate endDate = LocalDate.of(year+1,1, 1);
-        List<Match> matches = this.matchRepository.getMatchesByTeamBetweenDates(
-                teamName, startDate, endDate);
-        return matches;
+        return this.matchRepository.getMatchesByTeamBetweenDates(teamName, startDate, endDate);
     }
 
 }

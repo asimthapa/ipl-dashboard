@@ -3,22 +3,43 @@ import { Link, useParams } from "react-router-dom";
 import { MatchDetailCard } from "../components/MatchDetailCard";
 import { MatchSmallCard } from "../components/MatchSmallCard";
 import { WinLossPieChart } from "../components/WinLossPieChart";
+import { ResourceNotFound } from "../components/ResourceNotFound";
 import "./TeamPage.scss";
 
 export const TeamPage = () => {
 	const [team, setTeam] = useState({ recentMatches: [] });
+	const [loadState, setLoadState] = useState({
+		loading: true,
+		teamFound: false,
+	});
 	const { teamName } = useParams();
 	useEffect(() => {
 		const fetchMatches = async () => {
 			const response = await fetch(`http://localhost:8080/team/${teamName}`);
-			const data = await response.json();
-			setTeam(data);
+			if (response.headers.get("Content-Length") !== "0") {
+				const data = await response.json();
+				setTeam(data);
+				setLoadState({
+					loading: false,
+					teamFound: true,
+				});
+			} else {
+				setLoadState({
+					loading: false,
+					teamFound: false,
+				});
+			}
 		};
 		fetchMatches();
 	}, [teamName]);
 
-	if (!team || !team.teamName) {
-		return <h1>Team not found</h1>;
+	if (loadState.loading) {
+		//TODO: implement loading
+		return null;
+	}
+
+	if (!loadState.teamFound) {
+		return <ResourceNotFound resourceName="Team" />;
 	}
 
 	return (
