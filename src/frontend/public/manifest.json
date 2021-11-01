@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "IPL Dashboard",
+  "name": "IPL Dashboard (2002 - 2020)",
+  "description": "IPL dashboard with teams and matches info",
   "icons": [
     {
       "src": "favicon.ico",

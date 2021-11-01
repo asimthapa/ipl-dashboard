@@ -12,9 +12,12 @@ export const MatchPage = () => {
 	});
 	const { teamName, year } = useParams();
 	useEffect(() => {
+		if (isNaN(year)) {
+			return;
+		}
 		const fetchMatches = async () => {
 			const response = await fetch(
-				`http://localhost:8080/team/${teamName}/matches?year=${year}`
+				`${process.env.REACT_APP_API_ROOT_URL}/team/${teamName}/matches?year=${year}`
 			);
 			const data = await response.json();
 			setMatches(data);
@@ -25,15 +28,14 @@ export const MatchPage = () => {
 		fetchMatches();
 	}, [teamName, year]);
 
+	//TODO: fix attempt to returning matches for teams that don't exist
+	if (isNaN(year)) {
+		return <ResourceNotFound customMessage="Invalid date" />;
+	}
+
 	if (loadState.loading) {
 		//TODO: implement loading
 		return null;
-	}
-
-	if (matches.length === 0) {
-		return (
-			<ResourceNotFound resourceName="Matches" moreText={`for ${teamName}`} />
-		);
 	}
 
 	return (

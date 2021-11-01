@@ -1,5 +1,6 @@
 package xyz.sudocat.ipldashboard.controller;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import xyz.sudocat.ipldashboard.model.Match;
 import xyz.sudocat.ipldashboard.model.Team;
@@ -21,6 +22,11 @@ public class TeamController {
         this.matchRepository = matchRepository;
     }
 
+    @GetMapping("/team")
+    public Iterable<Team> getAllTeam() {
+        return this.teamRepository.findAll(Sort.by(Sort.Direction.ASC, "teamName"));
+    }
+
     @GetMapping("/team/{teamName}")
     public Team getTeam(@PathVariable String teamName) {
         Team team = this.teamRepository.findByTeamName(teamName);
@@ -33,7 +39,7 @@ public class TeamController {
     @GetMapping("/team/{teamName}/matches")
     public List<Match> getMatchesForTeam(@PathVariable String teamName, @RequestParam int year) {
         LocalDate startDate = LocalDate.of(year, 1, 1);
-        LocalDate endDate = LocalDate.of(year+1,1, 1);
+        LocalDate endDate = LocalDate.of(year + 1, 1, 1);
         return this.matchRepository.getMatchesByTeamBetweenDates(teamName, startDate, endDate);
     }
 

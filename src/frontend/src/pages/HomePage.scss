@@ -1,0 +1,16 @@
+.HomePage {
+	.app-title {
+		font-size: 3rem;
+	}
+	.header-section {
+		text-align: center;
+		margin: 30px;
+	}
+
+	.team-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-column-gap: 10px;
+		grid-row-gap: 10px;
+	}
+}
