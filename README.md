@@ -13,3 +13,16 @@ App is built using Spring Boot and React JS. To run it locally check [applicatio
 ### Matches Page
 
 ![Matches Page Page](src/README/matches-page.png)
+
+## Tech Used
+
+- Spring Boot
+- Spring Batch
+- Java Persistence API, Repositories & JPQL
+- HSQLDB (Hyper SQL Database)
+- React JS
+- AWS BeanStalk
+
+## Dataset used
+
+https://www.kaggle.com/patrickb1912/ipl-complete-dataset-20082020/metadata
